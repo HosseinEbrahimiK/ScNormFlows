@@ -11,7 +11,7 @@ Computing the trace of the jacobian takes O(D^2) where D is the dimension of z(t
 </p>
 
 ## Implementation
-I choose z in x = f(z) from two moon distribution by following code:
+I choose x in the equation x = f(z) from two moon distribution by following code:
 ```Python
 def generate_two_moons(num_samples=200, noise=0.1):
   data, _ = sklearn.datasets.make_moons(n_samples=num_samples, noise=noise)
@@ -22,3 +22,25 @@ x = (x-x.mean())/np.std(x)
 plt.scatter(x[:,0], x[:,1])
 plt.show()
 ```
+<p align="center">
+<img src="figures/1.jpg" alt="drawing" width="350"/>
+</p>
+By training a CNF model described as follows, a random variable z drawn from normal distribution transforms continuous in time to x.
+
+```Python
+    class CNF(nn.Module):
+    def __init__(self, net, trace_estimator=None, noise_dist=None):
+        super().__init__()
+        self.func = net
+        self.trace_estimator = trace_estimator;
+        self.noise_dist, self.noise = noise_dist, None
+        
+    def forward(self, x):
+        with torch.set_grad_enabled(True):
+            x_in = torch.autograd.Variable(x[:,1:], requires_grad=True).to(x)
+            x_out = self.func(x_in).to(x)
+            trJ = self.trace_estimator(x_out, x_in, self.noise)
+        return torch.cat([-trJ[:, None], x_out], 1) + 0*x
+        
+```
+
