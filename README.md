@@ -25,7 +25,7 @@ plt.show()
 <p align="center">
 <img src="figures/1.jpg" alt="drawing" width="400"/>
 </p>
-By training a CNF model described as follows, a random variable z drawn from normal distribution transforms continuous in time to x.
+By training a CNF model and the trace estimator described as follows, a random variable z drawn from normal distribution transforms continuous in time to x.
 
 ```Python
     class CNF(nn.Module):
