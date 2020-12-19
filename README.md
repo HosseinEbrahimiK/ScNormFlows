@@ -28,6 +28,11 @@ plt.show()
 By training a CNF model and the trace estimator described as follows, a random variable z drawn from normal distribution transforms continuous in time to x.
 
 ```Python
+    def estimator(x_out, x_in, epsilon):
+      jvp = torch.autograd.grad(x_out, x_in, epsilon, allow_unused=True,create_graph=True)[0]
+      trJacobian = torch.einsum('bi,bi->b', jvp, epsilon)
+      return trJacobian
+    
     class CNF(nn.Module):
       def __init__(self, net, trace_estimator=None, noise_dist=None):
           super().__init__()
