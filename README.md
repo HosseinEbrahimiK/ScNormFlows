@@ -1,7 +1,7 @@
 # Continuous Normalizing Flows
 ## Overview
 The concept was first introduced in Neural Ordinary Differential Equations paper ([arXiv](https://arxiv.org/pdf/1806.07366.pdf)). They proved the Instantaneous Change of Variables theorem that states the change in log probability of a continuous random variable is equal to the trace of the Jacobin matrix:
-
+<p>
 <a href="https://www.codecogs.com/eqnedit.php?latex=\frac{\partial\log&space;p(\boldsymbol{z}(t))}{\partial&space;t}&space;=&space;-Tr(\frac{df}{d\boldsymbol{z}(t)})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\frac{\partial\log&space;p(\boldsymbol{z}(t))}{\partial&space;t}&space;=&space;-Tr(\frac{df}{d\boldsymbol{z}(t)})" title="\frac{\partial\log p(\boldsymbol{z}(t))}{\partial t} = -Tr(\frac{df}{d\boldsymbol{z}(t)})" /></a>
 </p>
 Computing the jacobian trace takes O(D^2), where D is the dimension of z(t). They reduced this cost to O(D) in FFJORD (https://arxiv.org/pdf/1806.07366.pdf), where an unbiased stochastic estimator of the trace is used.
