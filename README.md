@@ -2,11 +2,11 @@
 ## Overview
 The concept was first introduced in Neural Ordinary Differential Equations paper ([arXiv](https://arxiv.org/pdf/1806.07366.pdf)). They proved the Instantaneous Change of Variables theorem that states the change in log probability of a continuous random variable is equal to the trace of the Jacobin matrix:
 <p align="center">
-<a href="https://www.codecogs.com/eqnedit.php?latex=\frac{\partial\log&space;p(\boldsymbol{z}(t))}{\partial&space;t}&space;=&space;-Tr(\frac{df}{d\boldsymbol{z}(t)})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\frac{\partial\log&space;p(\boldsymbol{z}(t))}{\partial&space;t}&space;=&space;-Tr(\frac{df}{d\boldsymbol{z}(t)})" title="\frac{\partial\log p(\boldsymbol{z}(t))}{\partial t} = -Tr(\frac{df}{d\boldsymbol{z}(t)})" /></a>
+$$\frac{\partial \log p(z(t))}{\partial t} = -\text{tr}\left(\frac{df}{dz(t)}\right)$$
 </p>
-Computing the jacobian trace takes O(D^2), where D is the dimension of z(t). They reduced this cost to O(D) in FFJORD (https://arxiv.org/pdf/1806.07366.pdf), where an unbiased stochastic estimator of the trace is used.
+Computing the jacobian trace takes O(D^2), where D is the dimension of z(t). They reduced this cost to O(D) in [FFJORD](https://arxiv.org/abs/1810.01367), where an unbiased stochastic estimator of the trace is used.
 <p align="center">
-<a href="https://www.codecogs.com/eqnedit.php?latex=Tr(\frac{\partial&space;f}{\partial\boldsymbol{z}(t)})&space;=&space;\mathbb{E}_{p(\boldsymbol{\varepsilon})}[\boldsymbol{\varepsilon}^T\frac{\partial&space;f}{\partial\boldsymbol{z}(t)}\boldsymbol{\varepsilon}],&space;\quad&space;\boldsymbol{\varepsilon}&space;\sim&space;\mathcal{N}(0,&space;\boldsymbol{I})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Tr(\frac{\partial&space;f}{\partial\boldsymbol{z}(t)})&space;=&space;\mathbb{E}_{p(\boldsymbol{\varepsilon})}[\boldsymbol{\varepsilon}^T\frac{\partial&space;f}{\partial\boldsymbol{z}(t)}\boldsymbol{\varepsilon}],&space;\quad&space;\boldsymbol{\varepsilon}&space;\sim&space;\mathcal{N}(0,&space;\boldsymbol{I})" title="Tr(\frac{\partial f}{\partial\boldsymbol{z}(t)}) = \mathbb{E}_{p(\boldsymbol{\varepsilon})}[\boldsymbol{\varepsilon}^T\frac{\partial f}{\partial\boldsymbol{z}(t)}\boldsymbol{\varepsilon}], \quad \boldsymbol{\varepsilon} \sim \mathcal{N}(0, \boldsymbol{I})" /></a>
+$$\text{Tr}\left(\frac{\partial f}{\partial \boldsymbol{z}(t)}\right) = \mathbb{E}_{p(\boldsymbol{\varepsilon})}\left[\boldsymbol{\varepsilon}^T \frac{\partial f}{\partial \boldsymbol{z}(t)} \boldsymbol{\varepsilon}\right], \quad \boldsymbol{\varepsilon} \sim \mathcal{N}(0, \boldsymbol{I})$$
 </p>
 
 ## Implementation
